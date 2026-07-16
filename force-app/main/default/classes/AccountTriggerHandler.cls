@@ -16,16 +16,26 @@ public with sharing class AccountTriggerHandler {
         }
         List<Contact> updateConList = new List<Contact>();
         for(Account acc:accList){
-                Contact updateCon = relatedConMap.get(acc.Id);
-                updateCon.MailingStreet = acc.BillingStreet;
-                updateCon.MailingCity = acc.BillingCity;
-                updateCon.MailingState = acc.BillingState;
-                updateCon.MailingPostalCode = acc.BillingPostalCode;
-                updateCon.MailingCountry = acc.BillingCountry;
-                updateConList.add(updateCon);
+            Contact updateCon = relatedConMap.get(acc.Id);
+            if(acc.BillingStreet != null || acc.BillingCity != null || acc.BillingState != null ||
+                acc.BillingPostalCode != null || acc.BillingCountry != null){
+                    updateCon.MailingStreet = acc.BillingStreet;
+                    updateCon.MailingCity = acc.BillingCity;
+                    updateCon.MailingState = acc.BillingState;
+                    updateCon.MailingPostalCode = acc.BillingPostalCode;
+                    updateCon.MailingCountry = acc.BillingCountry;
+                    updateConList.add(updateCon);
+            }       
         }
         if(!updateConList.isEmpty()){
             update updateConList;
+        }
+    }
+    public static void updateRatingFieldInAccount(List<Account> accList){
+        for(Account acc:accList){
+            if(acc.Industry == 'Media'){
+                acc.Rating = 'Hot';
+            }
         }
     }
 }
