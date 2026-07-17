@@ -38,4 +38,15 @@ public with sharing class AccountTriggerHandler {
             }
         }
     }
+    public static void checkedCopyBillingToShipping(List<Account> accList){
+        for(Account acc:accList){
+            if(acc.CopyBillingToShipping__c){
+                acc.ShippingStreet = acc.BillingStreet != null ? acc.BillingStreet : '';
+                acc.ShippingCity = acc.BillingCity != null ? acc.BillingCity : '';
+                acc.ShippingState = acc.BillingState != null ? acc.BillingState : '';
+                acc.ShippingPostalCode = acc.BillingPostalCode != null ? acc.BillingPostalCode : '';
+                acc.ShippingCountry = acc.BillingCountry != null ? acc.BillingCountry : '';
+            }
+        }
+    }
 }

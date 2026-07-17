@@ -7,6 +7,7 @@ trigger AccountTrigger on Account (after update,before insert) {
     if(trigger.isBefore){
         if(trigger.isInsert){
             AccountTriggerHandler.updateRatingFieldInAccount(trigger.new);
+            AccountTriggerHandler.checkedCopyBillingToShipping(trigger.new);
         }
     }
 }
