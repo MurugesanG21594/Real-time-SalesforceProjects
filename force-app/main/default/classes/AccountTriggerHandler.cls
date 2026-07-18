@@ -49,4 +49,8 @@ public with sharing class AccountTriggerHandler {
             }
         }
     }
+    public static void accountCascadeDelete(Map<Id, Account> oldAccMap){
+        List<Contact> relatedConList = [SELECT Id FROM Contact WHERE AccountId IN : oldAccMap.keySet()];
+        delete relatedConList;
+    }
 }
